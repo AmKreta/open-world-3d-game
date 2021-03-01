@@ -1,0 +1,45 @@
+@mixin themeGenerator($primary, $secondary, $tertiary, $info, $warning, $sucess, $danger, $failed) {
+
+    $classNameList: primary secondary tertiary info warning sucess danger failed;
+    $colorPalletList: $primary $secondary $tertiary $info $warning $sucess $danger $failed;
+
+    @for $i from 1 through length($classNameList) {
+        &.#{nth($classNameList,$i)} {
+            $color: nth($colorPalletList, $i);
+
+            &.contained {
+                color: white;
+                background-color: $color;
+            }
+
+            &.outlined {
+                color: $color;
+                border: 1px solid $color;
+            }
+
+            &.fade {
+                color: darken($color, 10%);
+                background-color: lighten($color, 30%);
+                border: 1px solid lighten($color, 20%);
+            }
+
+            &.text {
+                color: $color
+            }
+        }
+    }
+}
+
+
+
+.basic {
+    $primary: #007bff;
+    $secondary: #040a5c;
+    $tertiary: #25d4bd;
+    $warning: #ffc107;
+    $sucess: #28a745;
+    $danger: #dc3545;
+    $info: #990eb4;
+    $failed: #a8135e;
+    @include themeGenerator($primary, $secondary, $tertiary, $info, $warning, $sucess, $danger, $failed);
+}

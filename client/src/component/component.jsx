@@ -12,9 +12,14 @@ import Header from './header/header.component';
 import Aside from './aside/aside.component';
 import Footer from './footer/footer.component';
 
+//importing theme context
+import ThemeContext from './theme/themeContext/theme.context';
+import { BASIC } from './theme/themeClassNames/themeClassNames';
+
+
 const Component = () => {
     return (
-        <div className="amk">
+        <ThemeContext.Provider value={BASIC}>
             <Header />
             <Aside />
             <main>
@@ -29,7 +34,7 @@ const Component = () => {
                 </Switch>
             </main>
             <Footer />
-        </div>
+        </ThemeContext.Provider>
     );
 }
 
