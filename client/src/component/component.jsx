@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './component.styles.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 //importing custom components
@@ -15,13 +16,15 @@ import Footer from './footer/footer.component';
 //importing theme context
 import ThemeContext from './theme/themeContext/theme.context';
 import { BASIC } from './theme/themeClassNames/themeClassNames';
+import './theme/themeStyleSheet/theme.style.scss'
 
 
 const Component = () => {
+    const [isAsideActive, setIsAsideActive] = useState(false);
     return (
         <ThemeContext.Provider value={BASIC}>
-            <Header />
-            <Aside />
+            <Header {...{ isAsideActive, setIsAsideActive }} />
+            <Aside {...{ isAsideActive }} />
             <main>
                 <Switch>
                     <Route exact path='/' component={Home} />

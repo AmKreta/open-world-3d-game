@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import './aside.styles.scss';
 
-const Aside = () => {
+//importing theme
+import ThemeContext from '../theme/themeContext/theme.context';
+
+const Aside = ({ isAsideActive }) => {
+    const className = useContext(ThemeContext);
+
     return (
-        <aside>
+        <aside className={`${className} danger contained ${isAsideActive ? 'active' : null}`}>
             aside
         </aside>
     );

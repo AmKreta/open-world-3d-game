@@ -1,0 +1,25 @@
+@import '../globalStyles.scss';
+
+
+aside {
+    height:calc(#{$mainHeight} + 8%);
+    display: inline-block;
+    width: 25%;
+}
+
+@media only screen and (max-width:$medium) {
+    aside {
+        height: $mainHeight;
+        $width: Max(200px, 30vw);
+        position: absolute;
+        top: $headerHeight;
+        transform: translate(-100%);
+        width: $width;
+        transition: transform .5s ease-in-out;
+
+        &.active {
+            transform: translate(0%);
+            transition: transform .5s ease-in-out;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+@import './globalStyles.scss';
+
+main {
+    height:calc(#{$mainHeight} + 8%);
+    display: inline-block;
+    width: 75%;
+}
+
+@media only screen and (max-width:$medium) {
+
+    main {
+        height: $mainHeight;
+        width: 100%;
+    }
+}
