@@ -1,0 +1,10 @@
+.iconContainer {
+    height: var(--size);
+    width: var(--size);
+
+    .icon {
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+    }
+}

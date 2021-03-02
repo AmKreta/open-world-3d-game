@@ -18,25 +18,34 @@ import ThemeContext from './theme/themeContext/theme.context';
 import { BASIC } from './theme/themeClassNames/themeClassNames';
 import './theme/themeStyleSheet/theme.style.scss'
 
+//importing context
+import ActiveTabContext from './globalContext/activeTab.context';
+
+//importing tab names
+import { HOME, CHAT, GAME, PROFILE, SETTING, SHOP } from './services/tabs/tabs';
 
 const Component = () => {
     const [isAsideActive, setIsAsideActive] = useState(false);
+    const [activeTab, setActiveTab] = useState(HOME);
+
     return (
         <ThemeContext.Provider value={BASIC}>
-            <Header {...{ isAsideActive, setIsAsideActive }} />
-            <Aside {...{ isAsideActive }} />
-            <main>
-                <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/chat' component={Chat} />
-                    <Route path='/game' component={Game} />
-                    <Route path='/profile' component={Profile} />
-                    <Route path='/setting' component={Setting} />
-                    <Route path='/Shop' component={Shop} />
-                    <Redirect to='/404' />
-                </Switch>
-            </main>
-            <Footer />
+            <ActiveTabContext.Provider value={{ ...{ activeTab, setActiveTab } }}>
+                <Header {...{ isAsideActive, setIsAsideActive }} />
+                <Aside {...{ isAsideActive }} />
+                <main>
+                    <Switch>
+                        <Route exact path='/' component={Home} />
+                        <Route path={`/${CHAT}`} component={Chat} />
+                        <Route path={`/${GAME}`} component={Game} />
+                        <Route path={`/${PROFILE}`} component={Profile} />
+                        <Route path={`/${SETTING}`} component={Setting} />
+                        <Route path={`/${SHOP}`} component={Shop} />
+                        <Redirect to='/404' />
+                    </Switch>
+                </main>
+                <Footer />
+            </ActiveTabContext.Provider>
         </ThemeContext.Provider>
     );
 }
