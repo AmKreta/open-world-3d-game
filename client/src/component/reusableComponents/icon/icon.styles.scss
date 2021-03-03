@@ -2,9 +2,9 @@
     height: var(--size);
     width: var(--size);
 
-    .icon {
-        cursor: pointer;
+    &>.icon {
         height: 100%;
         width: 100%;
+        color:var(--color);
     }
 }

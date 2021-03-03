@@ -1,0 +1,23 @@
+@import '../../../../globalStyles.scss';
+
+aside {
+    width: Max(25%, 300px);
+    border: none !important;
+}
+
+@media only screen and (max-width : $medium) {
+    aside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: Max(25%, 250px);
+        transform: translate(-100%);
+        transition: .5s ease-in-out;
+
+        &.asideActive {
+            transform: translate(0%);
+            transition: .5s ease-in-out;
+        }
+    }
+}

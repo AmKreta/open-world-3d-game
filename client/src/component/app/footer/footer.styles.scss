@@ -1,0 +1,15 @@
+@import '../../globalStyles.scss';
+
+footer {
+    display: none;
+}
+
+@media only screen and (max-width : $medium) {
+    footer {
+        height: $footerHeight;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $padding;
+    }
+}

@@ -1,53 +1,50 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './component.styles.scss';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import './theme/themeStyleSheet/theme.style.scss';
 
 //importing custom components
-import Chat from './chat/chat.component';
-import Game from './game/game.component';
-import Home from './home/home.component';
-import Profile from './profile/profile.component';
-import Setting from './setting/setting.component';
-import Shop from './shop/shop.component';
-import Header from './header/header.component';
-import Aside from './aside/aside.component';
-import Footer from './footer/footer.component';
+import Auth from './auth/auth.component';
+import App from './app/app.component';
 
-//importing theme context
-import ThemeContext from './theme/themeContext/theme.context';
-import { BASIC } from './theme/themeClassNames/themeClassNames';
-import './theme/themeStyleSheet/theme.style.scss'
 
 //importing context
-import ActiveTabContext from './globalContext/activeTab.context';
+import CurrentUserContext from './globalContext/currentUser.context';
+import ThemeContext from './theme/themeContext/theme.context';
+import SocketContext from './globalContext/socket.context';
 
-//importing tab names
-import { HOME, CHAT, GAME, PROFILE, SETTING, SHOP } from './services/tabs/tabs';
+//importing theme names
+import { BASIC } from './theme/themeClassNames/themeClassNames';
 
-const Component = () => {
-    const [isAsideActive, setIsAsideActive] = useState(false);
-    const [activeTab, setActiveTab] = useState(HOME);
+class Component extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            currentUser: null,
+            socket: null,
+            themes: [BASIC],
+            activeTheme: BASIC
+        }
+    }
 
-    return (
-        <ThemeContext.Provider value={BASIC}>
-            <ActiveTabContext.Provider value={{ ...{ activeTab, setActiveTab } }}>
-                <Header {...{ isAsideActive, setIsAsideActive }} />
-                <Aside {...{ isAsideActive }} />
-                <main>
-                    <Switch>
-                        <Route exact path='/' component={Home} />
-                        <Route path={`/${CHAT}`} component={Chat} />
-                        <Route path={`/${GAME}`} component={Game} />
-                        <Route path={`/${PROFILE}`} component={Profile} />
-                        <Route path={`/${SETTING}`} component={Setting} />
-                        <Route path={`/${SHOP}`} component={Shop} />
-                        <Redirect to='/404' />
-                    </Switch>
-                </main>
-                <Footer />
-            </ActiveTabContext.Provider>
-        </ThemeContext.Provider>
-    );
+    setCurrentUser = (userInfo) => {
+        this.setState({ currentUser: { ...userInfo } });
+    }
+
+    setSocket = (socket) => {
+        this.setState({ socket: socket });
+    }
+
+    render() {
+        return (
+            <ThemeContext.Provider value={BASIC}>
+                <CurrentUserContext.Provider value={{ currentUser: this.state.currentUser, setCurrentUser: this.setCurrentUser }}>
+                    <SocketContext.Provider value={{ socket: this.socket }}>
+                        {this.state.currentUser ? <App /> : <Auth />}
+                    </SocketContext.Provider>
+                </CurrentUserContext.Provider>
+            </ThemeContext.Provider>
+        );
+    }
 }
 
 export default Component;

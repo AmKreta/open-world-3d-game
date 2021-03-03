@@ -1,0 +1,12 @@
+@import '../../globalStyles.scss';
+
+main {
+    height:calc(#{$mainHeight} + #{$footerHeight});
+}
+
+@media only screen and (max-width : $medium) {
+    main {
+        height: $mainHeight;
+        position: relative;
+    }
+}

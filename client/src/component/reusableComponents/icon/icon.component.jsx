@@ -1,23 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { IconContext } from 'react-icons';
 import './icon.styles.scss';
 
-import { IconContext } from 'react-icons';
-
-const Icon = ({ children, noRippleEffect, className, onClick, size = '25px' }) => {
+const Icon = ({ children, noRippleEffect, onClick, size = '30px', color = 'white' }) => {
     return (
-        <div className="iconContainer" onClick={onClick} style={{ '--size': size }}>
-            <IconContext.Provider value={{ className: `icon ${className}` }}>
+        <div className="iconContainer" style={{ '--size': size,'--color':color }} onClick={onClick}>
+            <IconContext.Provider value={{ className: 'icon' }}>
                 {children}
             </IconContext.Provider>
-        </div >
+        </div>
     );
 }
 
 Icon.propTypes = {
     children: PropTypes.element.isRequired,
     noRippleEffect: PropTypes.bool,
-    className: PropTypes.string,
     onClick: PropTypes.func,
     size: PropTypes.string
 }

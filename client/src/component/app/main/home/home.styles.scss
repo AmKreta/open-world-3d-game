@@ -1,0 +1,10 @@
+.homeContainer {
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+
+    .home {
+        flex-grow: 1;
+    }
+}
