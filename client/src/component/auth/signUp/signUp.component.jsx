@@ -5,6 +5,7 @@ import './sigUp.styles.scss';
 
 //importing themeContext
 import ThemeContext from '../../theme/themeContext/theme.context';
+import CurrentUserContext from '../../globalContext/currentUser.context';
 
 //importing reusable components
 import Button from '../../reusableComponents/button/button.component';
@@ -64,56 +65,63 @@ class SignUp extends React.Component {
             <ThemeContext.Consumer>
                 {
                     theme => (
-                        <motion.div className={`${theme} primary outlined AuthSignUp`} {...this.animation}>
-                            <div style={{ width: '90%', margin: 'auto' }}>
-                                <Input
-                                    label='First Name'
-                                    type='text'
-                                    onChange={this.setFirstName}
-                                    value={this.state.firstName.value}
-                                />
-                                <Input
-                                    label='Last Name'
-                                    type='text'
-                                    onChange={this.setLastName}
-                                    value={this.state.lastName.value}
-                                />
-                                <Input
-                                    label='User Name'
-                                    type='text'
-                                    onChange={this.setUserName}
-                                    value={this.state.userName.value}
-                                />
-                                <Input
-                                    label='Age'
-                                    type='number'
-                                    onChange={this.setAge}
-                                    value={this.state.age.value}
-                                />
-                                <Input
-                                    label='E-mail'
-                                    type='e-mail'
-                                    onChange={this.setEmail}
-                                    value={this.state.email.value}
-                                />
-                                <Input
-                                    label='Password'
-                                    type='password'
-                                    onChange={this.setPassword1}
-                                    value={this.state.password1.value}
-                                />
-                                <Input
-                                    label='Confirm Password'
-                                    type='password'
-                                    onChange={this.setPassword2}
-                                    value={this.state.password2.value}
-                                />
-                                <Button
-                                    label='goto signUp page'
-                                    onClick={() => this.props.setActiveTab('login')}
-                                />
-                            </div>
-                        </motion.div>
+                        <CurrentUserContext.Consumer>
+                            {
+                                ({ setCurrentUser }) => (
+                                    <motion.div className={`${theme} AuthSignUp`} {...this.animation}>
+                                        <div style={{ width: '90%', margin: 'auto' }}>
+                                            <Input
+                                                label='First Name'
+                                                type='text'
+                                                onChange={this.setFirstName}
+                                                value={this.state.firstName.value}
+                                            />
+                                            <Input
+                                                label='Last Name'
+                                                type='text'
+                                                onChange={this.setLastName}
+                                                value={this.state.lastName.value}
+                                            />
+                                            <Input
+                                                label='User Name'
+                                                type='text'
+                                                onChange={this.setUserName}
+                                                value={this.state.userName.value}
+                                            />
+                                            <Input
+                                                label='Age'
+                                                type='number'
+                                                onChange={this.setAge}
+                                                value={this.state.age.value}
+                                            />
+                                            <Input
+                                                label='E-mail'
+                                                type='e-mail'
+                                                onChange={this.setEmail}
+                                                value={this.state.email.value}
+                                            />
+                                            <Input
+                                                label='Password'
+                                                type='password'
+                                                onChange={this.setPassword1}
+                                                value={this.state.password1.value}
+                                            />
+                                            <Input
+                                                label='Confirm Password'
+                                                type='password'
+                                                onChange={this.setPassword2}
+                                                value={this.state.password2.value}
+                                            />
+                                            <Button
+                                                label='goto signUp page'
+                                                onClick={() => this.props.setActiveTab('login')}
+                                                className={`${theme} primary outlined`}
+                                            />
+                                        </div>
+                                    </motion.div>
+                                )
+                            }
+                        </CurrentUserContext.Consumer>
                     )
                 }
             </ThemeContext.Consumer>

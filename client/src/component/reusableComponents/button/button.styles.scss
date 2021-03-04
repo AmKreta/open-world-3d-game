@@ -1,6 +1,7 @@
 button {
     height: var(--size);
-    width: calc(3 * var(--size));
+    min-width: calc(3 * var(--size));
+    padding: 3px 6px;
     background-color: white;
     border-radius: 5px;
     font-weight: bold;
@@ -10,6 +11,10 @@ button {
     }
 
     &:active {
-        transform: translate(1px, 1px);
+        transform: translate(2px, 2px);
+    }
+
+    &:focus {
+        outline: none;
     }
 }

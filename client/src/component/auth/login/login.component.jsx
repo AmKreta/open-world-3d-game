@@ -5,6 +5,7 @@ import './login.styles.scss';
 
 //importing themeContext
 import ThemeContext from '../../theme/themeContext/theme.context';
+import CurrentUserContext from '../../globalContext/currentUser.context';
 
 //importing reusable components
 import Button from '../../reusableComponents/button/button.component';
@@ -41,31 +42,37 @@ class Login extends React.Component {
             <ThemeContext.Consumer>
                 {
                     theme => (
-                        <motion.div className={`${theme} primary outlined AuthLogin`} {...this.animation}>
-                            <div style={{ width: '90%', margin: 'auto' }}>
-                                <Input
-                                    label='Username'
-                                    icon={<FaUserAlt />}
-                                    value={this.state.userName}
-                                    onChange={this.setUsername}
-                                    type='text'
-                                />
+                        <CurrentUserContext.Consumer>
+                            {
+                                ({ setCurrentUser }) => (
+                                    <motion.div className={`${theme} AuthLogin`} {...this.animation}>
+                                        <div style={{ width: '90%', margin: 'auto' }}>
+                                            <Input
+                                                label='Username'
+                                                icon={<FaUserAlt />}
+                                                value={this.state.userName}
+                                                onChange={this.setUsername}
+                                                type='text'
+                                            />
 
-                                <Input
-                                    label='Password'
-                                    icon={<CgPassword />}
-                                    value={this.state.password}
-                                    onChange={this.setPassword}
-                                    type='password'
-                                />
+                                            <Input
+                                                label='Password'
+                                                icon={<CgPassword />}
+                                                value={this.state.password}
+                                                onChange={this.setPassword}
+                                                type='password'
+                                            />
 
-                                <Button
-                                    label='gotosignup'
-                                    onClick={(e) => this.props.setActiveTab('signUp')}
-                                    className={`${theme} primary outlined`}
-                                />
-                            </div>
-                        </motion.div>
+                                            <Button
+                                                label='gotosignup'
+                                                onClick={(e) => this.props.setActiveTab('signUp')}
+                                                className={`${theme} primary outlined`}
+                                            />
+                                        </div>
+                                    </motion.div>
+                                )
+                            }
+                        </CurrentUserContext.Consumer>
                     )
                 }
             </ThemeContext.Consumer>

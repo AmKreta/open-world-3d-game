@@ -38,7 +38,7 @@ class Component extends React.Component {
         return (
             <ThemeContext.Provider value={BASIC}>
                 <CurrentUserContext.Provider value={{ currentUser: this.state.currentUser, setCurrentUser: this.setCurrentUser }}>
-                    <SocketContext.Provider value={{ socket: this.socket }}>
+                    <SocketContext.Provider value={this.socket}>
                         {this.state.currentUser ? <App /> : <Auth />}
                     </SocketContext.Provider>
                 </CurrentUserContext.Provider>
