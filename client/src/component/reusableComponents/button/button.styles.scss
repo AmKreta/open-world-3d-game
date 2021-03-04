@@ -1,0 +1,15 @@
+button {
+    height: var(--size);
+    width: calc(3 * var(--size));
+    background-color: white;
+    border-radius: 5px;
+    font-weight: bold;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: translate(1px, 1px);
+    }
+}

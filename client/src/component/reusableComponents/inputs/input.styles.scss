@@ -1,0 +1,77 @@
+.inputContainer {
+    margin: 15px 0;
+    color: black;
+    position: relative;
+    transition: .5s ease-in-out;
+
+    &.activeInputContainer {
+        margin-top: 35px;
+        transition: .5s ease-in-out;
+    }
+
+    &>* {
+        margin: 2px 0;
+    }
+
+    text-align:left;
+
+    &>label {
+        display: inline-block;
+        position: absolute;
+        top: 5px;
+        left: 35px;
+        color: #ccc;
+        transition: .5s ease-in-out;
+        font-size: 1em;
+
+        &.activeLabel {
+            top: -25px;
+            left: 10px;
+            transition: .5s ease-in-out;
+            color: black;
+            font-size: 1.1em;
+        }
+
+        &.leftZero {
+            left: 10px;
+        }
+    }
+
+    &>.input {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        background-color: white;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        transition: .5s ease-in-out;
+
+        &.activeInput {
+            box-shadow: 0 0 5px #ccc inset;
+        }
+
+        &.erroredInput {
+            border-color: red;
+            box-shadow: 0 0 5px red;
+            transition: .5s ease-in-out;
+        }
+
+        &>input {
+            flex-grow: 1;
+            background-color: inherit;
+            border: none;
+            outline: none;
+            margin-left: 10px;
+            height: 20px;
+        }
+    }
+
+    &>p {
+        text-align: left;
+        color: red;
+        font-size: .9em;
+        padding: 0 10px;
+        border: 1px solid red;
+        overflow: hidden;
+    }
+}
