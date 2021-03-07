@@ -1,4 +1,15 @@
 .AuthLogin {
     height: 50%;
     width: Min(90%, 500px);
+
+    &>div {
+        &>p {
+            margin: 10px 0;
+
+            &>span {
+                margin: 0 10px;
+                cursor: pointer;
+            }
+        }
+    }
 }

@@ -27,11 +27,19 @@ class Component extends React.Component {
     }
 
     setCurrentUser = (userInfo) => {
-        this.setState({ currentUser: { ...userInfo } });
+        this.setState({ currentUser: userInfo });
     }
 
     setSocket = (socket) => {
         this.setState({ socket: socket });
+    }
+
+    componentDidMount() {
+        let currentUser = localStorage.getItem('currentUser');
+        if (currentUser !== null) {
+            currentUser = JSON.parse(currentUser);
+            this.setCurrentUser(currentUser);
+        }
     }
 
     render() {

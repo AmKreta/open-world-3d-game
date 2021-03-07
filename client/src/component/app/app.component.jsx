@@ -21,6 +21,11 @@ class App extends React.Component {
         };
     }
 
+    componentDidMount() {
+        let activeTabInUrl = window.location.href.replace(`${window.location.origin}/`, '').split('/')[0];
+        this.setState({ activeTab: activeTabInUrl === '' ? HOME : activeTabInUrl });
+    }
+
     setActiveTab = (tab) => {
         this.setState({ activeTab: tab });
     }

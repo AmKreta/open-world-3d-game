@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import './sigUp.styles.scss';
@@ -11,18 +12,22 @@ import CurrentUserContext from '../../globalContext/currentUser.context';
 import Button from '../../reusableComponents/button/button.component';
 import Input from '../../reusableComponents/inputs/input.component';
 
+//importing services
+import { SIGN_UP } from '../../services/services';
+
 class SignUp extends React.Component {
     constructor(props) {
         super();
 
         this.state = {
-            firstName: { value: '', err: false },
-            lastName: { value: '', err: false },
+            fullName: { value: '', err: false },
             age: { value: '', err: false },
             userName: { value: '', err: false },
             email: { value: '', err: false },
             password1: { value: '', err: false },
-            password2: { value: '', err: false }
+            password2: { value: '', err: false },
+            requestSent: false,
+            responseReceived: false
         }
 
         this.animation = {
@@ -32,12 +37,8 @@ class SignUp extends React.Component {
         }
     }
 
-    setFirstName = (e) => {
-        this.setState({ firstName: { value: e.target.value, err: false } });
-    }
-
-    setLastName = (e) => {
-        this.setState({ lastName: { value: e.target.value, err: false } });
+    setFullName = (e) => {
+        this.setState({ fullName: { value: e.target.value, err: false } });
     }
 
     setUserName = (e) => {
@@ -60,6 +61,27 @@ class SignUp extends React.Component {
         this.setState({ password2: { value: e.target.value, err: false } })
     }
 
+    signUp = (setCurrentUser) => {
+        let data = {
+            firstName: this.state.fullName.value.split(' ')[0],
+            lastName: this.state.fullName.value.split(' ')[1],
+            userName: this.state.userName.value,
+            email: this.state.email.value,
+            password: this.state.password1.value
+        };
+
+        axios
+            .post(SIGN_UP, data)
+            .then(res => {
+                localStorage.setItem('currentUser', JSON.stringify(res.data.payload));
+                setCurrentUser(res.data.payload)
+            })
+            .catch(err => {
+                console.log(err);
+                alert('unable to sign up');
+            });
+    }
+
     render() {
         return (
             <ThemeContext.Consumer>
@@ -71,16 +93,10 @@ class SignUp extends React.Component {
                                     <motion.div className={`${theme} AuthSignUp`} {...this.animation}>
                                         <div style={{ width: '90%', margin: 'auto' }}>
                                             <Input
-                                                label='First Name'
+                                                label='Full Name'
                                                 type='text'
-                                                onChange={this.setFirstName}
-                                                value={this.state.firstName.value}
-                                            />
-                                            <Input
-                                                label='Last Name'
-                                                type='text'
-                                                onChange={this.setLastName}
-                                                value={this.state.lastName.value}
+                                                onChange={this.setFullName}
+                                                value={this.state.fullName.value}
                                             />
                                             <Input
                                                 label='User Name'
@@ -88,12 +104,12 @@ class SignUp extends React.Component {
                                                 onChange={this.setUserName}
                                                 value={this.state.userName.value}
                                             />
-                                            <Input
+                                            {/*<Input
                                                 label='Age'
                                                 type='number'
                                                 onChange={this.setAge}
                                                 value={this.state.age.value}
-                                            />
+                                            />*/}
                                             <Input
                                                 label='E-mail'
                                                 type='e-mail'
@@ -112,11 +128,25 @@ class SignUp extends React.Component {
                                                 onChange={this.setPassword2}
                                                 value={this.state.password2.value}
                                             />
-                                            <Button
-                                                label='goto signUp page'
-                                                onClick={() => this.props.setActiveTab('login')}
-                                                className={`${theme} primary outlined`}
-                                            />
+                                            <motion.div
+                                                drag
+                                                dragConstraints={{ top: 0, left: 0, bottom: 0, right: 0 }}
+                                            >
+                                                <Button
+                                                    label='sign Up'
+                                                    onClick={() => this.signUp(setCurrentUser)}
+                                                    className={`${theme} primary outlined`}
+                                                />
+                                            </motion.div>
+                                            <p>
+                                                Already have an account?
+                                                <span
+                                                    className={`${theme} primary text`}
+                                                    onClick={(e) => this.props.setActiveTab('login')}
+                                                >
+                                                    login
+                                                </span>
+                                            </p>
                                         </div>
                                     </motion.div>
                                 )

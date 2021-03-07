@@ -5,13 +5,24 @@ button {
     background-color: white;
     border-radius: 5px;
     font-weight: bold;
+    display:flex;
+    align-items:center;
+    outline:none;
+
+    &>.buttonIcon{
+        width:20%;
+    }
+
+    &>p{
+        flex-grow:1;
+    }
 
     &:hover {
         cursor: pointer;
     }
 
     &:active {
-        transform: translate(2px, 2px);
+        transform: translate(-1px, 1px);
     }
 
     &:focus {

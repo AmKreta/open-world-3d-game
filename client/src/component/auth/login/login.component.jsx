@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 import './login.styles.scss';
 
 //importing themeContext
@@ -15,12 +16,17 @@ import Input from '../../reusableComponents/inputs/input.component';
 import { FaUserAlt } from 'react-icons/fa';
 import { CgPassword } from 'react-icons/cg';
 
+//importing services
+import { LOGIN } from '../../services/services';
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             userName: '',
-            password: ''
+            password: '',
+            requestSent: false,
+            responseReceived: false
         }
         this.animation = {
             initial: { x: '100vw' },
@@ -35,6 +41,23 @@ class Login extends React.Component {
 
     setPassword = (e) => {
         this.setState({ password: e.target.value });
+    }
+
+    login = (setCurrentUser) => {
+        let data = {
+            userName: this.state.userName,
+            password: this.state.password
+        }
+        axios
+            .post(LOGIN, data)
+            .then(res => {
+                localStorage.setItem('currentUser', JSON.stringify(res.data.payload));
+                setCurrentUser(res.data.payload);
+            })
+            .catch(err => {
+                console.log(err);
+                alert('unable to login');
+            });
     }
 
     render() {
@@ -63,11 +86,25 @@ class Login extends React.Component {
                                                 type='password'
                                             />
 
-                                            <Button
-                                                label='gotosignup'
-                                                onClick={(e) => this.props.setActiveTab('signUp')}
-                                                className={`${theme} primary outlined`}
-                                            />
+                                            <motion.div
+                                                drag
+                                                dragConstraints={{ top: 0, left: 0, bottom: 0, right: 0 }}
+                                            >
+                                                <Button
+                                                    label='login'
+                                                    onClick={(e) => this.login(setCurrentUser)}
+                                                    className={`${theme} primary outlined`}
+                                                />
+                                            </motion.div>
+                                            <p>
+                                                Don't have an account?
+                                                <span
+                                                    className={`${theme} primary text`}
+                                                    onClick={(e) => this.props.setActiveTab('SignUp')}
+                                                >
+                                                    Sign Up
+                                                </span>
+                                            </p>
                                         </div>
                                     </motion.div>
                                 )

@@ -38,7 +38,7 @@ const Input = ({ label, type, isInvalid, errorMessage = '', onChange, value = ''
 
 Input.propTypes = {
     label: PropTypes.string,
-    type: PropTypes.oneOf(['text', 'number', 'email']),
+    type: PropTypes.oneOf(['text', 'number', 'email', 'password','e-mail']),
     isInvalid: PropTypes.bool,
     errorMessage: PropTypes.string,
     onChange: PropTypes.func.isRequired,

@@ -1,0 +1,109 @@
+@import '../../../globalStyles.scss';
+
+.shop {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(#ccc, darken(#ccc, 50%));
+    position: relative;
+
+    .typeSelector {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        &>div {
+            margin: 10px;
+        }
+    }
+
+    .currentCoins {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: initial;
+        height: 40px;
+        width: 200px;
+        color: white;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 5px;
+
+        &>img {
+            max-width: 20%;
+            margin-right: 5px;
+            animation-name: coin;
+            animation-duration: 3s;
+            animation-timing-function: linear;
+            animation-fill-mode: both;
+            animation-direction: normal;
+            animation-iteration-count: infinite;
+            cursor: pointer;
+        }
+
+        &>p {
+            color: white;
+            font-weight: bold;
+            //font-family: ;
+        }
+    }
+
+    .prevNextArrow {
+        position: absolute;
+        bottom: 2%;
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+
+        .showItemsIndexVisualizer {
+            height: 10px;
+            width: 10px;
+            border: 1px solid white;
+            border-radius: 50%;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.active {
+                background-color: white;
+            }
+        }
+    }
+
+    .buyItemButton {
+        position: absolute;
+        bottom: 15%;
+        left: 1%;
+    }
+}
+
+@media only screen and (max-width : $medium) {
+    .shop {
+        .currentCoins {
+            justify-content: flex-end;
+        }
+
+        .prevNextArrow {
+            bottom: 13%;
+        }
+
+        .buyItemButton {
+            bottom: 3%;
+        }
+    }
+}
+
+@keyframes coin {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}

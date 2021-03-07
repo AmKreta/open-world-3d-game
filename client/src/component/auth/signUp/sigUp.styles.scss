@@ -1,4 +1,19 @@
 .AuthSignUp {
     min-height: 50%;
     width: Min(90%, 500px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &>div {
+        &>p {
+            margin: 10px 0;
+
+            &>span {
+                margin: 0 10px;
+                cursor: pointer;
+            }
+        }
+    }
 }
